@@ -9,6 +9,7 @@ disableValidatingWebhook: false
 validatingWebhookTimeoutSeconds: 3
 validatingWebhookFailurePolicy: Ignore
 validatingWebhookAnnotations: {}
+validatingWebhookCustomSelectors: []
 validatingWebhookExemptNamespacesLabels: {}
 validatingWebhookObjectSelector: {}
 validatingWebhookCheckIgnoreFailurePolicy: Fail

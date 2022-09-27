@@ -120,9 +120,7 @@ var replacements = map[string]string{
 
 	"HELMSUBST_VALIDATING_WEBHOOK_FAILURE_POLICY": `{{ .Values.validatingWebhookFailurePolicy }}`,
 
-	"HELMSUBST_VALIDATING_WEBHOOK_ANNOTATIONS": `{{- toYaml .Values.validatingWebhookAnnotations | trim | nindent 4 }}`,
-
-	"- HELMSUBST_VALIDATING_WEBHOOK_EXEMPT_NAMESPACE_LABELS": `
+	"- HELMSUBST_VALIDATING_WEBHOOK_NAMESPACE_SELECTORS": `
     {{- range $key, $value := .Values.validatingWebhookExemptNamespacesLabels}}
     - key: {{ $key }}
       operator: NotIn

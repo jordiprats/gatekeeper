@@ -2,7 +2,7 @@
 apiVersion: admissionregistration.k8s.io/v1
 kind: ValidatingWebhookConfiguration
 metadata:
-  annotations: {{- toYaml .Values.validatingWebhookAnnotations | trim | nindent 4 }}
+  annotations: HELMSUBST_VALIDATING_WEBHOOK_ANNOTATIONS
   labels:
     app: '{{ template "gatekeeper.name" . }}'
     chart: '{{ template "gatekeeper.name" . }}'
@@ -27,12 +27,17 @@ webhooks:
     - key: admission.gatekeeper.sh/ignore
       operator: DoesNotExist
     
+    {{- if .Values.validatingWebhookCustomRules }}
+    {{- range .Values.validatingWebhookExemptNamespacesLabels }}
+    - {{ . }}
+    {{- end }}
+    {{- end }}
     {{- range $key, $value := .Values.validatingWebhookExemptNamespacesLabels}}
     - key: {{ $key }}
       operator: NotIn
       values:
       {{- range $value }}
-      - {{ . }}
+      - {{ . }}f
       {{- end }}
     {{- end }}
   objectSelector: {{ toYaml .Values.validatingWebhookObjectSelector }}
